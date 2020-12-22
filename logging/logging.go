@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -9,6 +8,14 @@ import (
 type Logging struct {
 	format string
 	level  int
+}
+
+// NewLogging constructor
+func NewLogging() *Logging {
+	logging := new(Logging)
+	logging.format = "%#v"
+	logging.level = 0
+	return logging
 }
 
 //SetLevel set logging print level
@@ -23,12 +30,14 @@ func (l *Logging) SetFormat(format string) {
 
 //Debug row level print
 func (l *Logging) Debug(text string) {
-	if 0 > l.level {
-		fmt.Printf(l.format, text)
+	if 0 >= l.level {
+		log.Printf(l.format, text)
 	}
 }
 func main() {
-	test := "test"
-	format := "%#v"
-	log.Printf(format, test)
+	// log.Printf(format, test)
+	log := NewLogging()
+	log.Debug("test")
+	log.SetLevel(1)
+	log.Debug("test")
 }
