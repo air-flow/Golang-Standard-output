@@ -1,6 +1,9 @@
 # Golang-Standard-output
 
 汎用的に使用できる golang の標準出力作成
+Python logging を再現したい。
+ロギングレベル設定
+format 設定
 
 ## DEMO
 
