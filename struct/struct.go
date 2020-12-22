@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // Person test
 type Person struct {
@@ -10,11 +8,15 @@ type Person struct {
 	age       int
 }
 
-func (p Person) intro(greetings string) string {
-	return greetings + " I am " + p.firstName
+func (p *Person) set() {
+	p.age = 1
+	p.firstName = "test"
+	// return p
 }
 
 func main() {
-	bob := Person{age: 15, firstName: "Sam"}
-	fmt.Println(bob.intro("Hello")) //=> Hello I am Bob
+	bob := new(Person)
+	bob.set()
+	fmt.Println(bob.age)
+	fmt.Print(bob)
 }
