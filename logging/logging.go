@@ -34,6 +34,35 @@ func (l *Logging) Debug(text string) {
 		log.Printf(l.format, text)
 	}
 }
+
+//Info row level print
+func (l *Logging) Info(text string) {
+	if 0 >= l.level {
+		log.Printf(l.format, text)
+	}
+}
+
+//Warning row level print
+func (l *Logging) Warning(text string) {
+	if 0 >= l.level {
+		log.Printf(l.format, text)
+	}
+}
+
+//Error row level print
+func (l *Logging) Error(text string) {
+	if 0 >= l.level {
+		log.Printf(l.format, text)
+	}
+}
+
+//Critical row level print
+func (l *Logging) Critical(text string) {
+	if 0 >= l.level {
+		log.Printf(l.format, text)
+	}
+}
+
 func main() {
 	// log.Printf(format, test)
 	log := NewLogging()
