@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"runtime"
+	"time"
 )
 
 // Logging main struct
@@ -35,8 +35,8 @@ func NewLogging() *Logging {
 	logging.levelList[logging.CRITICAL] = "critical"
 	logging.level = logging.DEBUG
 	logging.format = "%#v"
-	logging.formatTime = false
-	logging.formatFunName = false
+	logging.formatTime = true
+	logging.formatFunName = true
 	return logging
 }
 
@@ -58,7 +58,20 @@ func (l *Logging) SetFormat(format string) {
 
 // Printf loggging
 func (l *Logging) Printf(text string) {
-	log.Printf(l.format, text)
+	l.FormatConfig()
+	fmt.Printf(l.format, text)
+}
+
+//FormatConfig check status
+func (l *Logging) FormatConfig() {
+	if l.formatTime {
+		fmt.Printf("Run Time => %s\n", time.Now())
+	}
+	if l.formatFunName {
+		pc, _, _, _ := runtime.Caller(3)
+		f := runtime.FuncForPC(pc)
+		fmt.Printf("Function Name => %s\n", f.Name())
+	}
 }
 
 //Debug row level print
@@ -96,19 +109,11 @@ func (l *Logging) Critical(text string) {
 	}
 }
 
-func Log(data string) {
-
-	pc, file, line, _ := runtime.Caller(1)
-	fmt.Println(pc)
-	f := runtime.FuncForPC(pc)
-	log.Printf("\ncall:%s\ndata:%s\nfile:%s:%d\n", f.Name(), data, file, line)
-}
-
 func main() {
 	// log.Printf(format, test)
 	log := NewLogging()
-	// log.Debug("debug test")
-	log.SetLevel(1)
+	log.Debug("debug test")
+	// log.SetLevel(1)
 	// log.Info("debug test")
 	// log.GetLogger()
 }
