@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 )
 
@@ -19,7 +20,6 @@ type Logging struct {
 // NewLogging constructor
 func NewLogging() *Logging {
 	logging := new(Logging)
-	logging.format = "%#v"
 	logging.DEBUG = 0
 	logging.INFO = 1
 	logging.WARRING = 2
@@ -31,12 +31,14 @@ func NewLogging() *Logging {
 	logging.levelList[logging.ERROR] = "error"
 	logging.levelList[logging.CRITICAL] = "critical"
 	logging.level = logging.DEBUG
+	logging.format = "%#v"
 	return logging
 }
 
-//GetLogger status print
+//GetLogger Field Variable print
 func (l *Logging) GetLogger() {
-
+	fmt.Printf("format => %q\n", l.format)
+	fmt.Printf("format => %d\n", l.level)
 }
 
 //SetLevel set logging print level
@@ -90,4 +92,5 @@ func main() {
 	log.Debug("debug test")
 	log.SetLevel(1)
 	log.Info("debug test")
+	log.GetLogger()
 }
