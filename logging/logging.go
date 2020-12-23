@@ -3,18 +3,21 @@ package main
 import (
 	"fmt"
 	"log"
+	"runtime"
 )
 
 // Logging main struct
 type Logging struct {
-	format    string
-	level     int
-	DEBUG     int
-	INFO      int
-	WARRING   int
-	ERROR     int
-	CRITICAL  int
-	levelList [5]string
+	format        string
+	formatTime    bool
+	formatFunName bool
+	level         int
+	DEBUG         int
+	INFO          int
+	WARRING       int
+	ERROR         int
+	CRITICAL      int
+	levelList     [5]string
 }
 
 // NewLogging constructor
@@ -32,6 +35,8 @@ func NewLogging() *Logging {
 	logging.levelList[logging.CRITICAL] = "critical"
 	logging.level = logging.DEBUG
 	logging.format = "%#v"
+	logging.formatTime = false
+	logging.formatFunName = false
 	return logging
 }
 
@@ -51,46 +56,59 @@ func (l *Logging) SetFormat(format string) {
 	l.format = format
 }
 
+// Printf loggging
+func (l *Logging) Printf(text string) {
+	log.Printf(l.format, text)
+}
+
 //Debug row level print
 func (l *Logging) Debug(text string) {
 	if l.DEBUG >= l.level {
-		log.Printf(l.format, text)
+		l.Printf(text)
 	}
 }
 
 //Info row level print
 func (l *Logging) Info(text string) {
 	if l.INFO >= l.level {
-		log.Printf(l.format, text)
+		l.Printf(text)
 	}
 }
 
 //Warning row level print
 func (l *Logging) Warning(text string) {
 	if l.WARRING >= l.level {
-		log.Printf(l.format, text)
+		l.Printf(text)
 	}
 }
 
 //Error row level print
 func (l *Logging) Error(text string) {
 	if l.ERROR >= l.level {
-		log.Printf(l.format, text)
+		l.Printf(text)
 	}
 }
 
 //Critical row level print
 func (l *Logging) Critical(text string) {
 	if l.CRITICAL >= l.level {
-		log.Printf(l.format, text)
+		l.Printf(text)
 	}
+}
+
+func Log(data string) {
+
+	pc, file, line, _ := runtime.Caller(1)
+	fmt.Println(pc)
+	f := runtime.FuncForPC(pc)
+	log.Printf("\ncall:%s\ndata:%s\nfile:%s:%d\n", f.Name(), data, file, line)
 }
 
 func main() {
 	// log.Printf(format, test)
 	log := NewLogging()
-	log.Debug("debug test")
+	// log.Debug("debug test")
 	log.SetLevel(1)
-	log.Info("debug test")
-	log.GetLogger()
+	// log.Info("debug test")
+	// log.GetLogger()
 }
