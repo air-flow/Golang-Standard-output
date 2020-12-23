@@ -34,9 +34,14 @@ func NewLogging() *Logging {
 	return logging
 }
 
+//GetLogger status print
+func (l *Logging) GetLogger() {
+
+}
+
 //SetLevel set logging print level
 func (l *Logging) SetLevel(level int) {
-	l.levelNow = level
+	l.level = level
 }
 
 //SetFormat set logging print  format
@@ -46,35 +51,35 @@ func (l *Logging) SetFormat(format string) {
 
 //Debug row level print
 func (l *Logging) Debug(text string) {
-	if 0 >= l.levelNow {
+	if l.DEBUG >= l.level {
 		log.Printf(l.format, text)
 	}
 }
 
 //Info row level print
 func (l *Logging) Info(text string) {
-	if 0 >= l.levelNow {
+	if l.INFO >= l.level {
 		log.Printf(l.format, text)
 	}
 }
 
 //Warning row level print
 func (l *Logging) Warning(text string) {
-	if 0 >= l.levelNow {
+	if l.WARRING >= l.level {
 		log.Printf(l.format, text)
 	}
 }
 
 //Error row level print
 func (l *Logging) Error(text string) {
-	if 0 >= l.levelNow {
+	if l.ERROR >= l.level {
 		log.Printf(l.format, text)
 	}
 }
 
 //Critical row level print
 func (l *Logging) Critical(text string) {
-	if 0 >= l.levelNow {
+	if l.CRITICAL >= l.level {
 		log.Printf(l.format, text)
 	}
 }
@@ -82,7 +87,7 @@ func (l *Logging) Critical(text string) {
 func main() {
 	// log.Printf(format, test)
 	log := NewLogging()
-	log.Debug("test")
+	log.Debug("debug test")
 	log.SetLevel(1)
-	log.Debug("test")
+	log.Info("debug test")
 }
