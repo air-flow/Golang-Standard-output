@@ -19,6 +19,8 @@ type Logging struct {
 	ERROR         int
 	CRITICAL      int
 	levelList     [5]string
+	formatList    map[string]string
+	formatLenMax  int
 }
 
 // NewLogging constructor
@@ -39,7 +41,23 @@ func NewLogging() *Logging {
 	logging.formatTime = true
 	logging.formatFunName = true
 	logging.formatRunLine = true
+	logging.formatList = make(map[string]string)
+	logging.formatList["formatTime"] = "Run Time"
+	logging.formatList["formatFunName"] = "Function Names"
+	logging.formatList["formatRunLine"] = "Run Line number"
+	logging.GetMaxLenghtForFormat()
 	return logging
+}
+
+//GetMaxLenghtForFormat formatList get max string lenght
+func (l *Logging) GetMaxLenghtForFormat() {
+	var maxLenght int = 0
+	for _, value := range l.formatList {
+		if maxLenght < len(value) {
+			maxLenght = len(value)
+		}
+	}
+	l.formatLenMax = maxLenght
 }
 
 //GetLogger Field Variable print
@@ -67,22 +85,27 @@ func (l *Logging) Printf(text string) {
 
 //FormatConfig check status
 func (l *Logging) FormatConfig() {
+	var formatTemplate = fmt.Sprintf("-%ds", l.formatLenMax+1)
+	// fmt.Printf("%"+formatTemplate+" ", "temp")
 	if l.formatTime {
-		fmt.Printf("Run Time => %s\n", time.Now())
+		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatTime"])
+		fmt.Printf(temp+"=> %s\n", time.Now())
 	}
 	if l.formatFunName {
 		pc, _, _, _ := runtime.Caller(3)
 		f := runtime.FuncForPC(pc)
-		fmt.Printf("Function Name => %s\n", f.Name())
+		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatFunName"])
+		fmt.Printf(temp+"=> %s\n", f.Name())
 		// file, line := f.FileLine(f.Entry())
 		// fmt.Println(file, line)
 		// println(f.Name())
 		// println("test")
 	}
 	if l.formatRunLine {
-		pc, _, line, _ := runtime.Caller(3)
-		f := runtime.FuncForPC(pc)
-		fmt.Printf("Run Line number => %s %d\n", f.Name(), line)
+		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatRunLine"])
+		_, _, line, _ := runtime.Caller(3)
+		// f := runtime.FuncForPC(pc)
+		fmt.Printf(temp+"=> %d\n", line)
 		// fmt.Println(f.Name(), line)
 	}
 }
@@ -148,4 +171,6 @@ func main() {
 	// log.SetFlags(log.Llongfile)
 	// log.Println("ログ1")
 	// log.SetFlags(log.Lshortfile)
+	// hello := fmt.Sprintf("'%-20s'\n", "test")
+	// fmt.Println(hello)
 }
