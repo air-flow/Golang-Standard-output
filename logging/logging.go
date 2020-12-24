@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"runtime"
-	"strings"
 	"time"
 )
 
@@ -12,6 +11,7 @@ type Logging struct {
 	format        string
 	formatTime    bool
 	formatFunName bool
+	formatRunLine bool
 	level         int
 	DEBUG         int
 	INFO          int
@@ -36,8 +36,9 @@ func NewLogging() *Logging {
 	logging.levelList[logging.CRITICAL] = "critical"
 	logging.level = logging.DEBUG
 	logging.format = "%#v\n"
-	logging.formatTime = false
+	logging.formatTime = true
 	logging.formatFunName = true
+	logging.formatRunLine = true
 	return logging
 }
 
@@ -60,7 +61,7 @@ func (l *Logging) SetFormat(format string) {
 // Printf loggging
 func (l *Logging) Printf(text string) {
 	l.FormatConfig()
-	l.test()
+	// l.test()
 	fmt.Printf(l.format, text)
 }
 
@@ -72,24 +73,29 @@ func (l *Logging) FormatConfig() {
 	if l.formatFunName {
 		pc, _, _, _ := runtime.Caller(3)
 		f := runtime.FuncForPC(pc)
-		fmt.Printf("Function Name => %s\n", strings.Split(f.Name(), ".")[0])
+		fmt.Printf("Function Name => %s\n", f.Name())
 		// file, line := f.FileLine(f.Entry())
 		// fmt.Println(file, line)
 		// println(f.Name())
 		// println("test")
 	}
+	if l.formatRunLine {
+		pc, _, line, _ := runtime.Caller(3)
+		f := runtime.FuncForPC(pc)
+		fmt.Printf("Run Line number => %s %d\n", f.Name(), line)
+		// fmt.Println(f.Name(), line)
+	}
 }
 
 func (l *Logging) test() {
 	for i := 0; i < 100; i++ {
-		_, _, line, ok := runtime.Caller(i)
+		pc, _, line, ok := runtime.Caller(i)
 		if ok {
+			f := runtime.FuncForPC(pc)
 			// fname := filepath.Base(file)
-			// fmt.Print(t)
-			// fmt.Print(file)
-			fmt.Println(line)
+			fmt.Println(f.Name(), line)
+			// fmt.Println(file)
 			// fmt.Print(fname)
-			// fmt.Errorf(`check error. "%s" != "%s"; file: %s, line: %d`, a, b, fname, line)
 		} else {
 			break
 		}
