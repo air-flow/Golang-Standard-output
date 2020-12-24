@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"runtime"
+	"strings"
 	"time"
 )
 
@@ -34,8 +36,8 @@ func NewLogging() *Logging {
 	logging.levelList[logging.ERROR] = "error"
 	logging.levelList[logging.CRITICAL] = "critical"
 	logging.level = logging.DEBUG
-	logging.format = "%#v"
-	logging.formatTime = true
+	logging.format = "%#v\n"
+	logging.formatTime = false
 	logging.formatFunName = true
 	return logging
 }
@@ -70,7 +72,11 @@ func (l *Logging) FormatConfig() {
 	if l.formatFunName {
 		pc, _, _, _ := runtime.Caller(3)
 		f := runtime.FuncForPC(pc)
-		fmt.Printf("Function Name => %s\n", f.Name())
+		fmt.Printf("Function Name => %s\n", strings.Split(f.Name(), ".")[0])
+		file, line := f.FileLine(f.Entry())
+		fmt.Println(file, line)
+		// println(f.Name())
+		// println("test")
 	}
 }
 
@@ -111,9 +117,12 @@ func (l *Logging) Critical(text string) {
 
 func main() {
 	// log.Printf(format, test)
-	log := NewLogging()
-	log.Debug("debug test")
-	// log.SetLevel(1)
+	// logging := NewLogging()
+	// logging.Debug("debug test")
+	// logging.Info("test")
 	// log.Info("debug test")
 	// log.GetLogger()
+	log.SetFlags(log.Llongfile)
+	log.Println("ログ1")
+	log.SetFlags(log.Lshortfile)
 }
