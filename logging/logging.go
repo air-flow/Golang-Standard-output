@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"runtime"
 	"strings"
 	"time"
@@ -61,6 +60,7 @@ func (l *Logging) SetFormat(format string) {
 // Printf loggging
 func (l *Logging) Printf(text string) {
 	l.FormatConfig()
+	l.test()
 	fmt.Printf(l.format, text)
 }
 
@@ -73,10 +73,27 @@ func (l *Logging) FormatConfig() {
 		pc, _, _, _ := runtime.Caller(3)
 		f := runtime.FuncForPC(pc)
 		fmt.Printf("Function Name => %s\n", strings.Split(f.Name(), ".")[0])
-		file, line := f.FileLine(f.Entry())
-		fmt.Println(file, line)
+		// file, line := f.FileLine(f.Entry())
+		// fmt.Println(file, line)
 		// println(f.Name())
 		// println("test")
+	}
+}
+
+func (l *Logging) test() {
+	for i := 0; i < 100; i++ {
+		_, _, line, ok := runtime.Caller(i)
+		if ok {
+			// fname := filepath.Base(file)
+			// fmt.Print(t)
+			// fmt.Print(file)
+			fmt.Println(line)
+			// fmt.Print(fname)
+			// fmt.Errorf(`check error. "%s" != "%s"; file: %s, line: %d`, a, b, fname, line)
+		} else {
+			break
+		}
+		// fmt.Errorf(`check error. "%s" != "%s"`, a, b)
 	}
 }
 
@@ -117,12 +134,12 @@ func (l *Logging) Critical(text string) {
 
 func main() {
 	// log.Printf(format, test)
-	// logging := NewLogging()
-	// logging.Debug("debug test")
+	logging := NewLogging()
+	logging.Debug("debug test")
 	// logging.Info("test")
 	// log.Info("debug test")
 	// log.GetLogger()
-	log.SetFlags(log.Llongfile)
-	log.Println("ログ1")
-	log.SetFlags(log.Lshortfile)
+	// log.SetFlags(log.Llongfile)
+	// log.Println("ログ1")
+	// log.SetFlags(log.Lshortfile)
 }
