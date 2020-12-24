@@ -164,9 +164,10 @@ func (l *Logging) Critical(text string) {
 func main() {
 	// log.Printf(format, test)
 	logging := NewLogging()
+	logging.SetLevel(logging.INFO)
 	logging.Debug("debug test")
 	// logging.Info("test")
-	// log.Info("debug test")
+	logging.Info("debug test")
 	// log.GetLogger()
 	// log.SetFlags(log.Llongfile)
 	// log.Println("ログ1")
