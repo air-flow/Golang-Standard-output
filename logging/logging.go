@@ -21,6 +21,7 @@ type Logging struct {
 	levelList     [5]string
 	formatList    map[string]string
 	formatLenMax  int
+	printMode     string
 }
 
 // NewLogging constructor
