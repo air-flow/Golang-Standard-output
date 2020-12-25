@@ -21,8 +21,8 @@ type Logging struct {
 	levelList     [5]string
 	formatList    map[string]string
 	formatLenMax  int
-	printMode     string
-	funcLog       [10]string
+	printMode     []string
+	funcLog       []string
 }
 
 // NewLogging constructor
@@ -45,7 +45,6 @@ func (l *Logging) InitializeLevelList() {
 	l.levelList[l.WARRING] = "warring"
 	l.levelList[l.ERROR] = "error"
 	l.levelList[l.CRITICAL] = "critical"
-
 }
 
 //InitializeLevel level set int
@@ -62,14 +61,21 @@ func (l *Logging) InitializeFormatList() {
 	l.formatList = make(map[string]string)
 	l.formatList["formatTime"] = "Run Time"
 	l.formatList["formatFunName"] = "Function Names"
-	l.formatList["formatRunLine"] = "Run Line number"s
+	l.formatList["formatRunLine"] = "Run Line number"
 }
 
 //InitializeFormatMode format bool
-func (l *Logging) InitializeFormatMode()  {
-	logging.formatTime = true
-	logging.formatFunName = true
-	logging.formatRunLine = true
+func (l *Logging) InitializeFormatMode() {
+	l.formatTime = true
+	l.formatFunName = true
+	l.formatRunLine = true
+}
+
+//InitializePrintMode print mode list string
+func (l *Logging) InitializePrintMode() {
+	l.printMode = append(l.printMode, "Ruby")
+	l.Debug(l.printMode[0])
+	// fmt.Println(reflect.TypeOf(l.printMode))
 }
 
 //GetMaxLenghtForFormat formatList get max string lenght
@@ -91,16 +97,18 @@ func (l *Logging) GetLogger() {
 
 //SetLevel set logging print level
 func (l *Logging) SetLevel(level int) {
+	// !VALIDATION CHECK
 	l.level = level
 }
 
 //SetFormat set logging print  format
 func (l *Logging) SetFormat(format string) {
+	// !VALIDATION CHECK
 	l.format = format
 }
 
 // Printf loggging
-func (l *Logging) Printf(text string) {
+func (l *Logging) Printf(text interface{}) {
 	// l.test()
 	l.FormatConfig()
 	fmt.Printf(l.format, text)
@@ -109,7 +117,6 @@ func (l *Logging) Printf(text string) {
 //FormatConfig check status
 func (l *Logging) FormatConfig() {
 	var formatTemplate = fmt.Sprintf("-%ds", l.formatLenMax+1)
-	// fmt.Printf("%"+formatTemplate+" ", "temp")
 	if l.formatTime {
 		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatTime"])
 		fmt.Printf(temp+"=> %s\n", time.Now())
@@ -119,17 +126,11 @@ func (l *Logging) FormatConfig() {
 		f := runtime.FuncForPC(pc)
 		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatFunName"])
 		fmt.Printf(temp+"=> %s\n", f.Name())
-		// file, line := f.FileLine(f.Entry())
-		// fmt.Println(file, line)
-		// println(f.Name())
-		// println("test")
 	}
 	if l.formatRunLine {
 		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatRunLine"])
 		_, _, line, _ := runtime.Caller(3)
-		// f := runtime.FuncForPC(pc)
 		fmt.Printf(temp+"=> %d\n", line)
-		// fmt.Println(f.Name(), line)
 	}
 }
 
@@ -141,35 +142,35 @@ func (l *Logging) test() {
 }
 
 //Debug row level print
-func (l *Logging) Debug(text string) {
+func (l *Logging) Debug(text interface{}) {
 	if l.DEBUG >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Info row level print
-func (l *Logging) Info(text string) {
+func (l *Logging) Info(text interface{}) {
 	if l.INFO >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Warning row level print
-func (l *Logging) Warning(text string) {
+func (l *Logging) Warning(text interface{}) {
 	if l.WARRING >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Error row level print
-func (l *Logging) Error(text string) {
+func (l *Logging) Error(text interface{}) {
 	if l.ERROR >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Critical row level print
-func (l *Logging) Critical(text string) {
+func (l *Logging) Critical(text interface{}) {
 	if l.CRITICAL >= l.level {
 		l.Printf(text)
 	}
@@ -178,12 +179,13 @@ func (l *Logging) Critical(text string) {
 //checkMain
 func checkMain() {
 	logging := NewLogging()
+	logging.Debug(1)
 	logging.SetLevel(logging.INFO)
-	logging.Debug("debug test")
 	logging.Info("test")
 }
 
 func main() {
-	logging := NewLogging()
-	logging.test()
+	checkMain()
+	// logging := NewLogging()
+	// logging.InitializePrintMode()
 }
