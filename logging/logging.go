@@ -28,27 +28,48 @@ type Logging struct {
 // NewLogging constructor
 func NewLogging() *Logging {
 	logging := new(Logging)
-	logging.DEBUG = 0
-	logging.INFO = 1
-	logging.WARRING = 2
-	logging.ERROR = 3
-	logging.CRITICAL = 4
-	logging.levelList[logging.DEBUG] = "debug"
-	logging.levelList[logging.INFO] = "info"
-	logging.levelList[logging.WARRING] = "warring"
-	logging.levelList[logging.ERROR] = "error"
-	logging.levelList[logging.CRITICAL] = "critical"
+	logging.InitializeLevel()
+	logging.InitializeLevelList()
+	logging.InitializeFormatList()
+	logging.InitializeFormatMode()
+	logging.GetMaxLenghtForFormat()
 	logging.level = logging.DEBUG
 	logging.format = "%#v\n"
+	return logging
+}
+
+//InitializeLevelList set list
+func (l *Logging) InitializeLevelList() {
+	l.levelList[l.DEBUG] = "debug"
+	l.levelList[l.INFO] = "info"
+	l.levelList[l.WARRING] = "warring"
+	l.levelList[l.ERROR] = "error"
+	l.levelList[l.CRITICAL] = "critical"
+
+}
+
+//InitializeLevel level set int
+func (l *Logging) InitializeLevel() {
+	l.DEBUG = 0
+	l.INFO = 1
+	l.WARRING = 2
+	l.ERROR = 3
+	l.CRITICAL = 4
+}
+
+//InitializeFormatList set map
+func (l *Logging) InitializeFormatList() {
+	l.formatList = make(map[string]string)
+	l.formatList["formatTime"] = "Run Time"
+	l.formatList["formatFunName"] = "Function Names"
+	l.formatList["formatRunLine"] = "Run Line number"s
+}
+
+//InitializeFormatMode format bool
+func (l *Logging) InitializeFormatMode()  {
 	logging.formatTime = true
 	logging.formatFunName = true
 	logging.formatRunLine = true
-	logging.formatList = make(map[string]string)
-	logging.formatList["formatTime"] = "Run Time"
-	logging.formatList["formatFunName"] = "Function Names"
-	logging.formatList["formatRunLine"] = "Run Line number"
-	logging.GetMaxLenghtForFormat()
-	return logging
 }
 
 //GetMaxLenghtForFormat formatList get max string lenght
@@ -80,8 +101,8 @@ func (l *Logging) SetFormat(format string) {
 
 // Printf loggging
 func (l *Logging) Printf(text string) {
-	l.FormatConfig()
 	// l.test()
+	l.FormatConfig()
 	fmt.Printf(l.format, text)
 }
 
@@ -113,19 +134,10 @@ func (l *Logging) FormatConfig() {
 }
 
 func (l *Logging) test() {
-	for i := 0; i < 100; i++ {
-		pc, _, line, ok := runtime.Caller(i)
-		if ok {
-			f := runtime.FuncForPC(pc)
-			// fname := filepath.Base(file)
-			fmt.Println(f.Name(), line)
-			// fmt.Println(file)
-			// fmt.Print(fname)
-		} else {
-			break
-		}
-		// fmt.Errorf(`check error. "%s" != "%s"`, a, b)
+	if false {
+		return
 	}
+	fmt.Println("test return")
 }
 
 //Debug row level print
@@ -163,17 +175,15 @@ func (l *Logging) Critical(text string) {
 	}
 }
 
-func main() {
-	// log.Printf(format, test)
+//checkMain
+func checkMain() {
 	logging := NewLogging()
 	logging.SetLevel(logging.INFO)
 	logging.Debug("debug test")
-	// logging.Info("test")
-	logging.Info("debug test")
-	// log.GetLogger()
-	// log.SetFlags(log.Llongfile)
-	// log.Println("ログ1")
-	// log.SetFlags(log.Lshortfile)
-	// hello := fmt.Sprintf("'%-20s'\n", "test")
-	// fmt.Println(hello)
+	logging.Info("test")
+}
+
+func main() {
+	logging := NewLogging()
+	logging.test()
 }
