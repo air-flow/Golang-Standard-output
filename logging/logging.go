@@ -22,6 +22,7 @@ type Logging struct {
 	formatList    map[string]string
 	formatLenMax  int
 	printMode     string
+	funcLog       [10]string
 }
 
 // NewLogging constructor
