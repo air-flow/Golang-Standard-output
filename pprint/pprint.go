@@ -4,14 +4,23 @@ import "fmt"
 
 //pprint
 type pprint struct {
-	format_list map[string][]string
+	format_list []keyword
 	indent      int
+}
+
+type keyword struct {
+	identifier string
+	startWord  string
+	EndWord    string
 }
 
 //NewPrint construct
 func NewPrint() *pprint {
 	pprint := new(pprint)
-	pprint.format_list["map"] = {"{", "}"}
+	mapKey := keyword{"map", "{", "}"}
+	ArrayKey := keyword{"map", "{", "}"}
+	pprint.format_list = append(pprint.format_list, mapKey)
+	pprint.format_list = append(pprint.format_list, ArrayKey)
 	return pprint
 }
 
@@ -39,6 +48,6 @@ func (p *pprint) PrintArrays() {
 
 func main() {
 	m := map[string]string{"foo": "bar", "hello": "world"}
-	pprint := new(pprint)
+	pprint := NewPrint()
 	pprint.pprint(m)
 }
