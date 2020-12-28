@@ -58,11 +58,20 @@ func (p *pprint) PrintArrays() {
 }
 
 func main() {
-	m := map[string]string{"foo": "bar", "hello": "world"}
-	n := map[int]string{1: "bar", 3: "world"}
-	a := 1
-	pprint := NewPprint()
-	pprint.pprint(m)
-	pprint.pprint(n)
-	pprint.pprint(a)
+	// m := map[string]string{"foo": "bar", "hello": "world"}
+	// n := map[int]string{1: "bar", 3: "world"}
+	// n := [][]map[string]string
+	// matrix := [][]string{{[]string{"0"}, []string{"0"}}}
+	// test := map[string][2]string
+	// a := 1
+	// pprint := NewPprint()
+	// pprint.pprint(m)
+	// pprint.pprint(n)
+	// pprint.pprint(a)
+	if reflect.TypeOf(0) == int {
+		fmt.Println(0)
+	} else {
+		fmt.Println(1)
+	}
+
 }
