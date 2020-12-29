@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"logging"
 )
 
 func main() {
@@ -15,4 +16,5 @@ func main() {
 	// b := in[2]
 	log.Printf("%#v", in)
 	fmt.Printf("%#v", in)
+	logging.checkMain()
 }

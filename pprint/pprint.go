@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"../logging"
 )
 
 //keyword set identifier
@@ -22,7 +23,7 @@ type pprint struct {
 func NewPprint() *pprint {
 	pprint := new(pprint)
 	mapKey := keyword{"map", "{", "}"}
-	ArrayKey := keyword{"map", "{", "}"}
+	ArrayKey := keyword{"array", "[", "]"}
 	pprint.formatList = append(pprint.formatList, mapKey)
 	pprint.formatList = append(pprint.formatList, ArrayKey)
 	return pprint
@@ -68,10 +69,12 @@ func main() {
 	// pprint.pprint(m)
 	// pprint.pprint(n)
 	// pprint.pprint(a)
-	if reflect.TypeOf(0) == int {
-		fmt.Println(0)
-	} else {
-		fmt.Println(1)
-	}
-
+	// if reflect.TypeOf(0) == int {
+	// 	fmt.Println(0)
+	// } else {
+	// 	fmt.Println(1)
+	// }
+	// mm := make(map[string]string, 0)
+	// fmt.Println(reflect.DeepEqual(m, mm))
+	../logging.checkMain()
 }
