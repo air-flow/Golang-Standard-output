@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"reflect"
-	"../logging"
 )
 
 //keyword set identifier
@@ -76,5 +75,5 @@ func main() {
 	// }
 	// mm := make(map[string]string, 0)
 	// fmt.Println(reflect.DeepEqual(m, mm))
-	../logging.checkMain()
+	logging.checkMain()
 }

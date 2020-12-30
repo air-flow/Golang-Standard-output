@@ -177,7 +177,7 @@ func (l *logging) Critical(text interface{}) {
 }
 
 //checkMain
-func checkMain() {
+func Test() {
 	logging := NewLogging()
 	logging.Debug(1)
 	logging.SetLevel(logging.INFO)
@@ -185,7 +185,7 @@ func checkMain() {
 }
 
 func main() {
-	checkMain()
+	Test()
 	// logging := NewLogging()
 	// logging.InitializePrintMode()
 }
