@@ -3,7 +3,13 @@ package main
 import (
 	"fmt"
 	"reflect"
+
+	"../logging"
 )
+
+var log interface{}
+
+var test string
 
 //keyword set identifier
 type keyword struct {
@@ -42,8 +48,9 @@ func (p *pprint) pprint(data interface{}) {
 		fmt.Println(reflect.TypeOf(v))
 	default:
 		fmt.Println(reflect.TypeOf(v))
+		_, _ = log.(logging.logging).Debug(v)
 		// fmt.Printf("%v[default]\n", v)
-		// fmt.Println(v)
+		fmt.Println(test)
 	}
 }
 
@@ -58,6 +65,10 @@ func (p *pprint) PrintArrays() {
 }
 
 func main() {
+	//ToDo map array slice Judgment
+	log := logging.NewLogging()
+	log.Debug("temp")
+	// logging.Debug(1)
 	// m := map[string]string{"foo": "bar", "hello": "world"}
 	// n := map[int]string{1: "bar", 3: "world"}
 	// n := [][]map[string]string
@@ -73,7 +84,17 @@ func main() {
 	// } else {
 	// 	fmt.Println(1)
 	// }
-	// mm := make(map[string]string, 0)
-	// fmt.Println(reflect.DeepEqual(m, mm))
-	logging.checkMain()
+	// mm := make(map[stri	ng]string, 0)
+	// m1 := map[string]int{
+	// 	"a": 2,
+	// 	"b": 2,
+	// }
+	// m2 := map[string]int{
+	// 	"a": 1,
+	// 	"b": 2,
+	// }
+	// logging.Debug(reflect.DeepEqual(m1, m2))
+	// logging.Debug()
+	// fmt.Println(reflect.DeepEqual(m1, m2))
+	// fmt.Println(reflect.DeepEqual(&m, &mm))
 }
