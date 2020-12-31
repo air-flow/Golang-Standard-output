@@ -18,15 +18,15 @@ type keyword struct {
 	EndWord    string
 }
 
-//pprint
-type pprint struct {
+//Pprint struct
+type Pprint struct {
 	formatList []keyword
 	indent     int
 }
 
 //NewPprint construct
-func NewPprint() *pprint {
-	pprint := new(pprint)
+func NewPprint() *Pprint {
+	pprint := new(Pprint)
 	mapKey := keyword{"map", "{", "}"}
 	ArrayKey := keyword{"array", "[", "]"}
 	pprint.formatList = append(pprint.formatList, mapKey)
@@ -35,7 +35,7 @@ func NewPprint() *pprint {
 }
 
 //pprint print list slice
-func (p *pprint) pprint(data interface{}) {
+func (p *Pprint) pprint(data interface{}) {
 	switch v := data.(type) {
 	case map[string]string:
 		// fmt.Println("map")
@@ -48,19 +48,20 @@ func (p *pprint) pprint(data interface{}) {
 		fmt.Println(reflect.TypeOf(v))
 	default:
 		fmt.Println(reflect.TypeOf(v))
-		_, _ = log.(logging.logging).Debug(v)
+		logg, _ := log.(logging.Logging)
+		logg.Debug(v)
 		// fmt.Printf("%v[default]\n", v)
 		fmt.Println(test)
 	}
 }
 
-//PrintMap print map
-func (p *pprint) PrintMaps() {
+//PrintMaps print map
+func (p *Pprint) PrintMaps() {
 
 }
 
 //PrintArrays print map
-func (p *pprint) PrintArrays() {
+func (p *Pprint) PrintArrays() {
 
 }
 
