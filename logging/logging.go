@@ -7,7 +7,7 @@ import (
 )
 
 // Logging main struct
-type logging struct {
+type Logging struct {
 	format        string
 	formatTime    bool
 	formatFunName bool
@@ -26,8 +26,8 @@ type logging struct {
 }
 
 // NewLogging constructor
-func NewLogging() *logging {
-	logging := new(logging)
+func NewLogging() *Logging {
+	logging := new(Logging)
 	logging.InitializeLevel()
 	logging.InitializeLevelList()
 	logging.InitializeFormatList()
@@ -39,7 +39,7 @@ func NewLogging() *logging {
 }
 
 //InitializeLevelList set list
-func (l *logging) InitializeLevelList() {
+func (l *Logging) InitializeLevelList() {
 	l.levelList[l.DEBUG] = "debug"
 	l.levelList[l.INFO] = "info"
 	l.levelList[l.WARRING] = "warring"
@@ -48,7 +48,7 @@ func (l *logging) InitializeLevelList() {
 }
 
 //InitializeLevel level set int
-func (l *logging) InitializeLevel() {
+func (l *Logging) InitializeLevel() {
 	l.DEBUG = 0
 	l.INFO = 1
 	l.WARRING = 2
@@ -57,7 +57,7 @@ func (l *logging) InitializeLevel() {
 }
 
 //InitializeFormatList set map
-func (l *logging) InitializeFormatList() {
+func (l *Logging) InitializeFormatList() {
 	l.formatList = make(map[string]string)
 	l.formatList["formatTime"] = "Run Time"
 	l.formatList["formatFunName"] = "Function Names"
@@ -65,21 +65,21 @@ func (l *logging) InitializeFormatList() {
 }
 
 //InitializeFormatMode format bool
-func (l *logging) InitializeFormatMode() {
+func (l *Logging) InitializeFormatMode() {
 	l.formatTime = false
 	l.formatFunName = true
 	l.formatRunLine = true
 }
 
 //InitializePrintMode print mode list string
-func (l *logging) InitializePrintMode() {
+func (l *Logging) InitializePrintMode() {
 	l.printMode = append(l.printMode, "Ruby")
 	l.Debug(l.printMode[0])
 	// fmt.Println(reflect.TypeOf(l.printMode))
 }
 
 //GetMaxLenghtForFormat formatList get max string lenght
-func (l *logging) GetMaxLenghtForFormat() {
+func (l *Logging) GetMaxLenghtForFormat() {
 	var maxLenght int = 0
 	for _, value := range l.formatList {
 		if maxLenght < len(value) {
@@ -90,32 +90,32 @@ func (l *logging) GetMaxLenghtForFormat() {
 }
 
 //GetLogger Field Variable print
-func (l *logging) GetLogger() {
+func (l *Logging) GetLogger() {
 	fmt.Printf("format => %q\n", l.format)
 	fmt.Printf("format => %d\n", l.level)
 }
 
 //SetLevel set logging print level
-func (l *logging) SetLevel(level int) {
+func (l *Logging) SetLevel(level int) {
 	// !VALIDATION CHECK
 	l.level = level
 }
 
 //SetFormat set logging print  format
-func (l *logging) SetFormat(format string) {
+func (l *Logging) SetFormat(format string) {
 	// !VALIDATION CHECK
 	l.format = format
 }
 
 // Printf loggging
-func (l *logging) Printf(text interface{}) {
+func (l *Logging) Printf(text interface{}) {
 	// l.test()
 	l.FormatConfig()
 	fmt.Printf(l.format, text)
 }
 
 //FormatConfig check status
-func (l *logging) FormatConfig() {
+func (l *Logging) FormatConfig() {
 	var formatTemplate = fmt.Sprintf("-%ds", l.formatLenMax+1)
 	if l.formatTime {
 		var temp = fmt.Sprintf("%"+formatTemplate, l.formatList["formatTime"])
@@ -134,7 +134,7 @@ func (l *logging) FormatConfig() {
 	}
 }
 
-func (l *logging) test() {
+func (l *Logging) test() {
 	if false {
 		return
 	}
@@ -142,35 +142,35 @@ func (l *logging) test() {
 }
 
 //Debug row level print
-func (l *logging) Debug(text interface{}) {
+func (l *Logging) Debug(text interface{}) {
 	if l.DEBUG >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Info row level print
-func (l *logging) Info(text interface{}) {
+func (l *Logging) Info(text interface{}) {
 	if l.INFO >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Warning row level print
-func (l *logging) Warning(text interface{}) {
+func (l *Logging) Warning(text interface{}) {
 	if l.WARRING >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Error row level print
-func (l *logging) Error(text interface{}) {
+func (l *Logging) Error(text interface{}) {
 	if l.ERROR >= l.level {
 		l.Printf(text)
 	}
 }
 
 //Critical row level print
-func (l *logging) Critical(text interface{}) {
+func (l *Logging) Critical(text interface{}) {
 	if l.CRITICAL >= l.level {
 		l.Printf(text)
 	}
