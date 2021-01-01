@@ -134,11 +134,15 @@ func (l *Logging) FormatConfig() {
 	}
 }
 
-func (l *Logging) test() {
-	if false {
-		return
-	}
-	fmt.Println("test return")
+// func (l *Logging) test() {
+// 	if false {
+// 		return
+// 	}
+// 	fmt.Println("test return")
+// }
+//test ready
+func (l *Logging) Test() {
+	fmt.Println("RDY")
 }
 
 //Debug row level print
