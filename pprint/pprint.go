@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 
 	"../logging"
 )
@@ -38,20 +37,30 @@ func NewPprint() *Pprint {
 func (p *Pprint) pprint(data interface{}) {
 	switch v := data.(type) {
 	case map[string]string:
-		// fmt.Println("map")
-		fmt.Println(reflect.TypeOf(v))
+		fmt.Println("[map]")
+		// fmt.Println(reflect.TypeOf(v))
+		Debug(v)
+	case map[interface{}]interface{}:
+		fmt.Println("[map interface]")
+		// fmt.Println(reflect.TypeOf(v))
+		Debug(v)
+	case map[string]int:
+		fmt.Println("[map interface]")
+		// fmt.Println(reflect.TypeOf(v))
+		Debug(v)
 	case []string:
-		// fmt.Println("array")
-		fmt.Println(reflect.TypeOf(v))
+		fmt.Println("[array]")
+		// fmt.Println(reflect.TypeOf(v))
+		Debug(v)
 	case int:
-		// fmt.Println(v, "int")
-		fmt.Println(reflect.TypeOf(v))
+		fmt.Println("[int]")
+		// fmt.Println(reflect.TypeOf(v))
+		Debug(v)
 	default:
-		fmt.Println(reflect.TypeOf(v))
-		logg, _ := log.(logging.Logging)
-		logg.Debug(v)
+		fmt.Println("[default]")
 		// fmt.Printf("%v[default]\n", v)
-		fmt.Println(test)
+		Debug(v)
+		// fmt.Println(test)
 	}
 }
 
@@ -65,37 +74,25 @@ func (p *Pprint) PrintArrays() {
 
 }
 
+// Debug temp
+func Debug(v interface{}) {
+	logg, _ := log.(logging.Logging)
+	logg.SetFormat("%#v\n")
+	// logg.GetLogger()
+	logg.Debug(v)
+}
+
 func main() {
 	//ToDo map array slice Judgment
 	log := logging.NewLogging()
-	log.Debug("temp")
-	// logging.Debug(1)
-	// m := map[string]string{"foo": "bar", "hello": "world"}
+	// log.Debug("temp")
+	log.Test()
+
+	m := map[string]int{"foo": 0, "hello": 0}
+	// m := map[string]int{"foo": 0, "hello": 0}
+	pprint := NewPprint()
+	pprint.pprint(m)
 	// n := map[int]string{1: "bar", 3: "world"}
 	// n := [][]map[string]string
 	// matrix := [][]string{{[]string{"0"}, []string{"0"}}}
-	// test := map[string][2]string
-	// a := 1
-	// pprint := NewPprint()
-	// pprint.pprint(m)
-	// pprint.pprint(n)
-	// pprint.pprint(a)
-	// if reflect.TypeOf(0) == int {
-	// 	fmt.Println(0)
-	// } else {
-	// 	fmt.Println(1)
-	// }
-	// mm := make(map[stri	ng]string, 0)
-	// m1 := map[string]int{
-	// 	"a": 2,
-	// 	"b": 2,
-	// }
-	// m2 := map[string]int{
-	// 	"a": 1,
-	// 	"b": 2,
-	// }
-	// logging.Debug(reflect.DeepEqual(m1, m2))
-	// logging.Debug()
-	// fmt.Println(reflect.DeepEqual(m1, m2))
-	// fmt.Println(reflect.DeepEqual(&m, &mm))
 }
