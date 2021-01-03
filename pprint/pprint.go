@@ -38,49 +38,31 @@ func NewPprint() *Pprint {
 func (p *Pprint) pprint(data interface{}) {
 	t := reflect.TypeOf(data).Kind()
 	if t == reflect.Map {
-		fmt.Println("[map]")
+		p.PrintMaps(data)
 	} else if t == reflect.Slice {
 		fmt.Println("[slice]")
+		p.PrintSlices(data)
+	} else if t == reflect.Array {
+		fmt.Println("[Array]")
+		p.PrintArrays(data)
 	} else {
 		fmt.Println("[default]")
 	}
 	Debug(t)
-	// switch v := reflect.TypeOf(data).Kind(){
-	// case map[string]string:
-	// 	fmt.Println("[map]")
-	// 	// fmt.Println(reflect.TypeOf(v))
-	// 	Debug(v)
-	// case map[interface{}]interface{}:
-	// 	fmt.Println("[map interface]")
-	// 	// fmt.Println(reflect.TypeOf(v))
-	// 	Debug(v)
-	// case map[string]int:
-	// 	fmt.Println("[map interface]")
-	// 	// fmt.Println(reflect.TypeOf(v))
-	// 	Debug(v)
-	// case []string:
-	// 	fmt.Println("[array]")
-	// 	// fmt.Println(reflect.TypeOf(v))
-	// 	Debug(v)
-	// case int:
-	// 	fmt.Println("[int]")
-	// 	// fmt.Println(reflect.TypeOf(v))
-	// 	Debug(v)
-	// default:
-	// 	fmt.Println("[default]")
-	// 	// fmt.Printf("%v[default]\n", v)
-	// 	Debug(v)
-	// 	// fmt.Println(test)
-	// }
 }
 
 //PrintMaps print map
-func (p *Pprint) PrintMaps() {
+func (p *Pprint) PrintMaps(data interface{}) {
 
 }
 
 //PrintArrays print map
-func (p *Pprint) PrintArrays() {
+func (p *Pprint) PrintArrays(data interface{}) {
+
+}
+
+//PrintSlices print slice
+func (p *Pprint) PrintSlices(data interface{}) {
 
 }
 
@@ -93,14 +75,18 @@ func Debug(v interface{}) {
 }
 
 func main() {
-	//ToDo map array slice Judgment
 	log := logging.NewLogging()
 	// log.Debug("temp")
 	log.Test()
 	m := map[string]string{"foo": "0", "hello": "0"}
 	// m := map[string]int{"foo": 0, "hello": 0}
+	s := []int{}
+	var b [3]int
 	pprint := NewPprint()
 	pprint.pprint(m)
+	pprint.pprint(s)
+	pprint.pprint(b)
+
 	// n := map[int]string{1: "bar", 3: "world"}
 	// n := [][]map[string]string
 	// matrix := [][]string{{[]string{"0"}, []string{"0"}}}
