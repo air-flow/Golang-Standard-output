@@ -44,15 +44,15 @@ func (p *Pprint) pprint(data interface{}) {
 	if t == reflect.Map {
 		p.PrintMaps(data)
 	} else if t == reflect.Slice {
-		fmt.Println("[slice]")
+		// fmt.Println("[slice]")
 		p.PrintSlices(data)
 	} else if t == reflect.Array {
-		fmt.Println("[Array]")
+		// fmt.Println("[Array]")
 		p.PrintArrays(data)
 	} else {
-		fmt.Println("[default]")
+		// fmt.Println("[default]")
 	}
-	Debug(t)
+	// Debug(t)
 }
 
 //PrintMaps print map
@@ -82,7 +82,25 @@ func (p *Pprint) PrintArrays(data interface{}) {
 	// for _, v := range data.([10]int) {
 	// 	fmt.Println(v)
 	// }
-	fmt.Println(len(data.(string)))
+	// fmt.Println(len(data.(data.(type))))
+	// v := data.(type)
+	// Debug(reflect.TypeOf(data))
+	// fmt.Println()
+	// v := reflect.MakeMap(reflect.ValueOf(data).Type())
+	// fmt.Println(reflect.TypeOf(data))
+	// v := reflect.TypeOf(data)
+	// ar := reflect.ArrayOf(0, reflect.TypeOf(data))
+	// fmt.Println(types.NewMap())
+	s := reflect.ValueOf(data)
+	ret := make([]interface{}, s.Len())
+
+	for i := 0; i < s.Len(); i++ {
+		ret[i] = s.Index(i).Interface()
+	}
+
+	fmt.Println(ret)
+	// temp := *data
+	// Debug()
 }
 
 //PrintSlices print slice
