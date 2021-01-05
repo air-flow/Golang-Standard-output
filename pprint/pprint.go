@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"reflect"
 
 	"../logging"
@@ -79,28 +78,13 @@ func (p *Pprint) PrintArrays(data interface{}) {
 	//  'Kobe',
 	//  'Yokohama',
 	//  'Okinawa']
-	// for _, v := range data.([10]int) {
-	// 	fmt.Println(v)
-	// }
-	// fmt.Println(len(data.(data.(type))))
-	// v := data.(type)
-	// Debug(reflect.TypeOf(data))
-	// fmt.Println()
-	// v := reflect.MakeMap(reflect.ValueOf(data).Type())
-	// fmt.Println(reflect.TypeOf(data))
-	// v := reflect.TypeOf(data)
-	// ar := reflect.ArrayOf(0, reflect.TypeOf(data))
-	// fmt.Println(types.NewMap())
 	s := reflect.ValueOf(data)
 	ret := make([]interface{}, s.Len())
-
 	for i := 0; i < s.Len(); i++ {
 		ret[i] = s.Index(i).Interface()
 	}
-
-	fmt.Println(ret)
-	// temp := *data
-	// Debug()
+	// fmt.Println(ret)
+	Debug(ret)
 }
 
 //PrintSlices print slice
