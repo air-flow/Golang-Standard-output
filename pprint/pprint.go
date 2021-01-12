@@ -78,13 +78,20 @@ func (p *Pprint) PrintArrays(data interface{}) {
 	//  'Kobe',
 	//  'Yokohama',
 	//  'Okinawa']
+	// fmt.Println(ret)
+	result := ChangeInterfaceArrayInterface(data)
+	Debug(result)
+}
+
+//ChangeInterfaceArrayInterface interface → Array
+func ChangeInterfaceArrayInterface(data interface{}) []interface{} {
 	s := reflect.ValueOf(data)
 	ret := make([]interface{}, s.Len())
 	for i := 0; i < s.Len(); i++ {
 		ret[i] = s.Index(i).Interface()
 	}
-	// fmt.Println(ret)
-	Debug(ret)
+	return ret
+
 }
 
 //PrintSlices print slice
@@ -112,7 +119,6 @@ func main() {
 	// pprint.pprint(m)
 	// pprint.pprint(s)
 	pprint.pprint(b)
-
 	// n := map[int]string{1: "bar", 3: "world"}
 	// n := [][]map[string]string
 	// matrix := [][]string{{[]string{"0"}, []string{"0"}}}
