@@ -67,7 +67,7 @@ func (l *Logging) InitializeFormatList() {
 //InitializeFormatMode format bool
 func (l *Logging) InitializeFormatMode() {
 	l.formatTime = false
-	l.formatFunName = true
+	l.formatFunName = false
 	l.formatRunLine = true
 }
 
@@ -180,11 +180,15 @@ func (l *Logging) Critical(text interface{}) {
 	}
 }
 
-//checkMain
+//Test temp
 func Test() {
 	logging := NewLogging()
-	logging.Debug(1)
-	logging.SetLevel(logging.INFO)
+	// logging.SetLevel(logging.INFO)
+	logging.Debug(0)
+	logging.Info(1)
+	logging.Warning(2)
+	logging.Error(3)
+	logging.Critical(4)
 	// logging.Info("test")
 }
 
