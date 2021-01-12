@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 
 	"../logging"
@@ -8,13 +9,10 @@ import (
 
 var log interface{}
 
-var test string
-
 //keyword set identifier
 type keyword struct {
 	identifier string
-	startWord  string
-	EndWord    string
+	Word       [2]string
 }
 
 //Pprint struct
@@ -28,9 +26,11 @@ type Pprint struct {
 //NewPprint construct
 func NewPprint() *Pprint {
 	pprint := new(Pprint)
-	mapKey := keyword{"map", "{", "}"}
-	ArrayKey := keyword{"array", "[", "]"}
-	SliceKey := keyword{"slice", "[", "]"}
+	temp := [2]string{"{", "}"}
+	mapKey := keyword{"map", temp}
+	temp = [2]string{"[", "]"}
+	ArrayKey := keyword{"array", temp}
+	SliceKey := keyword{"slice", temp}
 	pprint.formatList = append(pprint.formatList, mapKey)
 	pprint.formatList = append(pprint.formatList, ArrayKey)
 	pprint.formatList = append(pprint.formatList, SliceKey)
@@ -80,6 +80,10 @@ func (p *Pprint) PrintArrays(data interface{}) {
 	//  'Okinawa']
 	// fmt.Println(ret)
 	result := ChangeInterfaceArrayInterface(data)
+	// fmt.Println(item)
+	for _, item := range result {
+		fmt.Println(item)
+	}
 	Debug(result)
 }
 
