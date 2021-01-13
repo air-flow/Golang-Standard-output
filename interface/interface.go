@@ -20,5 +20,5 @@ func main() {
 	wordList["map"] = [2]string{"{", "}"}
 	wordList["list"] = [2]string{"[", "]"}
 	wordList["array"] = [2]string{"[", "]"}
-	fmt.Println(wordList["map"][0])
+	fmt.Println(wordList)
 }
