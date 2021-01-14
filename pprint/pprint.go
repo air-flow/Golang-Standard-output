@@ -36,7 +36,7 @@ func NewPprint() *Pprint {
 	SliceKey := keyword{"slice", temp}
 	pprint.wordList = make(map[string][2]string)
 	pprint.wordList["map"] = [2]string{"{", "}"}
-	pprint.wordList["list"] = [2]string{"[", "]"}
+	pprint.wordList["slice"] = [2]string{"[", "]"}
 	pprint.wordList["array"] = [2]string{"[", "]"}
 	pprint.formatList = append(pprint.formatList, mapKey)
 	pprint.formatList = append(pprint.formatList, ArrayKey)
@@ -47,11 +47,19 @@ func NewPprint() *Pprint {
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
 	t := reflect.TypeOf(data).Kind()
+	switch t {
+	case reflect.Map:
+		fmt.Println("s")
+	case reflect.Array:
+		fmt.Println("sa")
+	}
+
 	if t == reflect.Map {
 		p.PrintMaps(data)
 	} else if t == reflect.Slice {
 		// fmt.Println("[slice]")
-		p.PrintSlices(data)
+		// p.PrintSlices(data)
+		p.PrintArrays(data)
 	} else if t == reflect.Array {
 		// fmt.Println("[Array]")
 		p.PrintArrays(data)
@@ -89,12 +97,17 @@ func (p *Pprint) PrintArrays(data interface{}) {
 	result := ChangeInterfaceArrayInterface(data)
 	// fmt.Println(item)
 	for _, item := range result {
-		temp := strings.Repeat(" ", p.indent)
-		fmt.Print(temp)
+		PrintIndent()
 		fmt.Println(item)
 	}
 	fmt.Println(p.wordList["array"][1])
 	// Debug(result)
+}
+
+// PrintIndent print space indent size
+func (p *Pprint) PrintIndent() {
+	temp := strings.Repeat(" ", p.indent)
+	fmt.Print(temp)
 }
 
 //ChangeInterfaceArrayInterface interface → Array
