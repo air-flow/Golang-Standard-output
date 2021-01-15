@@ -47,26 +47,19 @@ func NewPprint() *Pprint {
 
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
-	t := reflect.TypeOf(data).Kind()
-	// switch t {
-	// 	test()
-	// case reflect.Map:
-	// 	fmt.Println("s")
-	// case reflect.Array:
-	// 	fmt.Println("sa")
-	// }
-	p.mode = t
-	if t == reflect.Map {
+	p.mode = reflect.TypeOf(data).Kind()
+
+	if p.mode == reflect.Map {
 		p.PrintMaps(data)
-	} else if t == reflect.Slice {
+	} else if p.mode == reflect.Slice {
 		// fmt.Println("[slice]")
 		// p.PrintSlices(data)
 		p.PrintArrays(data)
-	} else if t == reflect.Array {
+	} else if p.mode == reflect.Array {
 		// fmt.Println("[Array]")
 		p.PrintArrays(data)
 	} else {
-		// fmt.Println("[default]")
+		fmt.Println(data)
 	}
 	// Debug(t)
 }
