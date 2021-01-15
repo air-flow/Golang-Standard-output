@@ -22,6 +22,7 @@ type Pprint struct {
 	indent     int
 	width      int
 	depth      int
+	mode       interface{}
 	wordList   map[string][2]string
 }
 
@@ -47,13 +48,14 @@ func NewPprint() *Pprint {
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
 	t := reflect.TypeOf(data).Kind()
-	switch t {
-	case reflect.Map:
-		fmt.Println("s")
-	case reflect.Array:
-		fmt.Println("sa")
-	}
-
+	// switch t {
+	// 	test()
+	// case reflect.Map:
+	// 	fmt.Println("s")
+	// case reflect.Array:
+	// 	fmt.Println("sa")
+	// }
+	p.mode = t
 	if t == reflect.Map {
 		p.PrintMaps(data)
 	} else if t == reflect.Slice {
@@ -67,6 +69,11 @@ func (p *Pprint) pprint(data interface{}) {
 		// fmt.Println("[default]")
 	}
 	// Debug(t)
+}
+
+//test test
+func test() {
+	fmt.Println("test")
 }
 
 //PrintMaps print map
@@ -83,25 +90,15 @@ func (p *Pprint) PrintMaps(data interface{}) {
 
 //PrintArrays print map
 func (p *Pprint) PrintArrays(data interface{}) {
-	//! interface{} Convert to array
 	// * Complete the chart
-	// ['Tokyo',
-	//  'Osaka',
-	//  'Nagoya',
-	//  'Fukuoka',
-	//  'Hokkaido',
-	//  'Kobe',
-	//  'Yokohama',
-	//  'Okinawa']
 	fmt.Println(p.wordList["array"][0])
 	result := ChangeInterfaceArrayInterface(data)
 	// fmt.Println(item)
 	for _, item := range result {
-		PrintIndent()
+		p.PrintIndent()
 		fmt.Println(item)
 	}
 	fmt.Println(p.wordList["array"][1])
-	// Debug(result)
 }
 
 // PrintIndent print space indent size
@@ -122,9 +119,9 @@ func ChangeInterfaceArrayInterface(data interface{}) []interface{} {
 }
 
 //PrintSlices print slice
-func (p *Pprint) PrintSlices(data interface{}) {
+// func (p *Pprint) PrintSlices(data interface{}) {
 
-}
+// }
 
 // Debug temp
 func Debug(v interface{}) {
