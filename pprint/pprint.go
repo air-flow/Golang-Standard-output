@@ -10,19 +10,20 @@ import (
 
 var log interface{}
 
-//keyword set identifier
-type keyword struct {
+//TypeDetails set identifier
+type TypeDetails struct {
 	identifier string
 	Word       [2]string
+	funcName   func()
 }
 
 //Pprint struct
 type Pprint struct {
-	formatList []keyword
+	formatList map[interface{}]TypeDetails
 	indent     int
 	width      int
 	depth      int
-	mode       interface{}
+	Typemode   interface{}
 	wordList   map[string][2]string
 }
 
@@ -30,29 +31,29 @@ type Pprint struct {
 func NewPprint() *Pprint {
 	pprint := new(Pprint)
 	pprint.indent = 4
-	temp := [2]string{"{", "}"}
-	mapKey := keyword{"map", temp}
-	temp = [2]string{"[", "]"}
-	ArrayKey := keyword{"array", temp}
-	SliceKey := keyword{"slice", temp}
+	// temp := [2]string{"{", "}"}
+	// mapKey := keyword{"map", temp}
+	// temp = [2]string{"[", "]"}
+	// ArrayKey := keyword{"array", temp}
+	// SliceKey := keyword{"slice", temp}
 	pprint.wordList = make(map[string][2]string)
 	pprint.wordList["map"] = [2]string{"{", "}"}
 	pprint.wordList["slice"] = [2]string{"[", "]"}
 	pprint.wordList["array"] = [2]string{"[", "]"}
-	pprint.formatList = append(pprint.formatList, mapKey)
-	pprint.formatList = append(pprint.formatList, ArrayKey)
-	pprint.formatList = append(pprint.formatList, SliceKey)
+	// pprint.formatList = append(pprint.formatList, mapKey)
+	// pprint.formatList = append(pprint.formatList, ArrayKey)
+	// pprint.formatList = append(pprint.formatList, SliceKey)
 	return pprint
 }
 
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
-	p.mode = reflect.TypeOf(data).Kind()
-	if p.mode == reflect.Map {
+	p.Typemode = reflect.TypeOf(data).Kind()
+	if p.Typemode == reflect.Map {
 		p.PrintMaps(data)
-	} else if p.mode == reflect.Slice {
+	} else if p.Typemode == reflect.Slice {
 		p.PrintArrays(data)
-	} else if p.mode == reflect.Array {
+	} else if p.Typemode == reflect.Array {
 		p.PrintArrays(data)
 	} else {
 		fmt.Println(data)
