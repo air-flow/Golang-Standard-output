@@ -48,25 +48,15 @@ func NewPprint() *Pprint {
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
 	p.mode = reflect.TypeOf(data).Kind()
-
 	if p.mode == reflect.Map {
 		p.PrintMaps(data)
 	} else if p.mode == reflect.Slice {
-		// fmt.Println("[slice]")
-		// p.PrintSlices(data)
 		p.PrintArrays(data)
 	} else if p.mode == reflect.Array {
-		// fmt.Println("[Array]")
 		p.PrintArrays(data)
 	} else {
 		fmt.Println(data)
 	}
-	// Debug(t)
-}
-
-//test test
-func test() {
-	fmt.Println("test")
 }
 
 //PrintMaps print map
