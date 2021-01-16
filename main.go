@@ -18,6 +18,7 @@ func arrayPrint() {
 }
 
 func mapreflect() {
+	//ToDo map key reflect value struct
 	u := make(map[uint]int)
 	data := "ste"
 	m := reflect.TypeOf(data).Kind()
