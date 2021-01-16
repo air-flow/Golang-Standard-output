@@ -17,6 +17,18 @@ func arrayPrint() {
 	fmt.Println("data")
 }
 
+func mapreflect() {
+	u := make(map[uint]int)
+	data := "ste"
+	m := reflect.TypeOf(data).Kind()
+	u[0] = 0
+	// m[reflect.Array] = 0
+	fmt.Println(u)
+	// fmt.Println(reflect.TypeOf(data).)
+	fmt.Println(reflect.TypeOf(m).Kind())
+	fmt.Println(reflect.TypeOf(reflect.Array).Kind())
+}
+
 func main() {
 	// in := [...]float64{10, 6, 3}
 	// var mapEx = map[string][]string{"firstName": ["John"]}
@@ -31,10 +43,10 @@ func main() {
 	// fmt.Printf("%#v", in)
 	// logging.Test()
 	// file_import.TestLog()
-	b := [10]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	maptest(b)
-	f := make(map[interface{}]func())
-	f["array"] = arrayPrint
-	f["array"]()
-
+	// b := [10]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	// maptest(b)
+	// f := make(map[interface{}]func())
+	// f["array"] = arrayPrint
+	// f["array"]()
+	mapreflect()
 }
