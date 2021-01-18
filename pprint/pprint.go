@@ -19,12 +19,13 @@ type TypeDetails struct {
 
 //Pprint struct
 type Pprint struct {
-	formatList map[interface{}]TypeDetails
+	formatList map[string]TypeDetails
 	indent     int
 	width      int
 	depth      int
 	Typemode   interface{}
 	wordList   map[string][2]string
+	test       map[string]interface{}
 }
 
 //NewPprint construct
@@ -37,6 +38,7 @@ func NewPprint() *Pprint {
 	// ArrayKey := keyword{"array", temp}
 	// SliceKey := keyword{"slice", temp}
 	pprint.wordList = make(map[string][2]string)
+	pprint.test = make(map[string]interface{})
 	pprint.wordList["map"] = [2]string{"{", "}"}
 	pprint.wordList["slice"] = [2]string{"[", "]"}
 	pprint.wordList["array"] = [2]string{"[", "]"}
@@ -48,6 +50,13 @@ func NewPprint() *Pprint {
 
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
+	// temp := reflect.TypeOf(data).Kind()
+	p.test["array"] = reflect.Map
+	fmt.Println(p.test)
+	// if reflect.Array == temp {
+	// 	fmt.Println("scussu")
+	// }
+	// p.test[temp.String()] = 0
 	p.Typemode = reflect.TypeOf(data).Kind()
 	if p.Typemode == reflect.Map {
 		p.PrintMaps(data)

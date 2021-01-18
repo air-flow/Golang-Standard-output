@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"reflect"
 )
 
@@ -29,6 +30,10 @@ func mapreflect() {
 	fmt.Println(reflect.TypeOf(m).Kind())
 	fmt.Println(reflect.TypeOf(reflect.Array).Kind())
 }
+func p(prefix string, val interface{}) {
+	rt := reflect.TypeOf(val)
+	log.Printf(prefix+"\nvalue: %+v, type: %+v, kind: %+v", val, rt, rt.Kind())
+}
 
 func main() {
 	// in := [...]float64{10, 6, 3}
@@ -49,5 +54,15 @@ func main() {
 	// f := make(map[interface{}]func())
 	// f["array"] = arrayPrint
 	// f["array"]()
-	mapreflect()
+	// mapreflect()
+	gv := [1]int{1}
+	var x, y interface{}
+	rv := reflect.TypeOf(gv).Kind()
+	x = reflect.Map
+	y = rv.String()
+	gv2 := rv.String()
+	fmt.Println(gv2)
+	fmt.Println(x)
+	fmt.Println(y)
+	// p("Int.", gv2)
 }
