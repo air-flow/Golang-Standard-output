@@ -7,14 +7,14 @@ import (
 )
 
 // maptest
-func maptest(data interface{}) {
-	m := make(map[interface{}]func())
-	m[reflect.TypeOf(data).Kind()] = arrayPrint
-	m["array"]()
-}
+// func maptest(data interface{}) {
+// m := make(map[interface{}]func())
+// m[reflect.TypeOf(data).Kind()] := arrayPrint
+// m["array"]()
+// }
 
 // arrayPrint test
-func arrayPrint() {
+func arrayPrint(test string) {
 	fmt.Println("data")
 }
 
@@ -33,6 +33,21 @@ func mapreflect() {
 func p(prefix string, val interface{}) {
 	rt := reflect.TypeOf(val)
 	log.Printf(prefix+"\nvalue: %+v, type: %+v, kind: %+v", val, rt, rt.Kind())
+}
+
+func FuncVarTest(in interface{}) {
+	fmt.Println(in)
+}
+
+type TypeDetails struct {
+	identifier  string
+	Word        [2]string
+	funcName    func(interface{})
+	reflectType interface{}
+}
+
+func (t *TypeDetails) StructTest(in interface{}) {
+	fmt.Println(in)
 }
 
 func main() {
@@ -64,5 +79,7 @@ func main() {
 	fmt.Println(gv2)
 	fmt.Println(x)
 	fmt.Println(y)
+	f := StructTest
+	f("test")
 	// p("Int.", gv2)
 }
