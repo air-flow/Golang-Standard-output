@@ -1,5 +1,6 @@
 package main
 
+//! I want to put the PrintArrays function in the FuncName of Type.
 import (
 	"fmt"
 	"reflect"
@@ -12,9 +13,10 @@ var log interface{}
 
 //TypeDetails set identifier
 type TypeDetails struct {
-	identifier string
-	Word       [2]string
-	funcName   func()
+	identifier  string
+	Word        [2]string
+	funcName    func(interface{})
+	reflectType interface{}
 }
 
 //Pprint struct
@@ -24,8 +26,8 @@ type Pprint struct {
 	width      int
 	depth      int
 	Typemode   interface{}
-	wordList   map[string][2]string
-	test       map[string]interface{}
+	// wordList   map[string][2]string
+	// test       map[string]interface{}
 }
 
 //NewPprint construct
@@ -37,11 +39,11 @@ func NewPprint() *Pprint {
 	// temp = [2]string{"[", "]"}
 	// ArrayKey := keyword{"array", temp}
 	// SliceKey := keyword{"slice", temp}
-	pprint.wordList = make(map[string][2]string)
-	pprint.test = make(map[string]interface{})
-	pprint.wordList["map"] = [2]string{"{", "}"}
-	pprint.wordList["slice"] = [2]string{"[", "]"}
-	pprint.wordList["array"] = [2]string{"[", "]"}
+	// pprint.wordList = make(map[string][2]string)
+	// pprint.test = make(map[string]interface{})
+	// pprint.wordList["map"] = [2]string{"{", "}"}
+	// pprint.wordList["slice"] = [2]string{"[", "]"}
+	// pprint.wordList["array"] = [2]string{"[", "]"}
 	// pprint.formatList = append(pprint.formatList, mapKey)
 	// pprint.formatList = append(pprint.formatList, ArrayKey)
 	// pprint.formatList = append(pprint.formatList, SliceKey)
@@ -51,8 +53,8 @@ func NewPprint() *Pprint {
 //pprint print list slice
 func (p *Pprint) pprint(data interface{}) {
 	// temp := reflect.TypeOf(data).Kind()
-	p.test["array"] = reflect.Map
-	fmt.Println(p.test)
+	// p.test["array"] = reflect.Map
+	// fmt.Println(p.test)
 	// if reflect.Array == temp {
 	// 	fmt.Println("scussu")
 	// }
@@ -81,17 +83,34 @@ func (p *Pprint) PrintMaps(data interface{}) {
 	//  'watermelon': 7}
 }
 
+//SetTypeDetails Initialize
+func (p *Pprint) SetTypeDetails() *TypeDetails {
+	// p.formatList["array"] =
+	typedetails := new(TypeDetails)
+	typedetails.identifier = "array"
+	// typedetails.funcName = temp(0)
+	// temp_values := interface{}
+	typedetails.funcName = temp
+	typedetails.funcName = p.PrintArrays
+
+	return typedetails
+}
+func temp(test interface{}) {
+	fmt.Println("test")
+}
+
 //PrintArrays print map
-func (p *Pprint) PrintArrays(data interface{}) {
+func (p *Pprint) PrintArrays(data interface{}) bool {
 	// * Complete the chart
-	fmt.Println(p.wordList["array"][0])
+	// fmt.Println(p.wordList["array"][0])
 	result := ChangeInterfaceArrayInterface(data)
 	// fmt.Println(item)
 	for _, item := range result {
 		p.PrintIndent()
 		fmt.Println(item)
 	}
-	fmt.Println(p.wordList["array"][1])
+	return false
+	// fmt.Println(p.wordList["array"][1])
 }
 
 // PrintIndent print space indent size
@@ -111,8 +130,8 @@ func ChangeInterfaceArrayInterface(data interface{}) []interface{} {
 
 }
 
-//PrintSlices print slice
 // func (p *Pprint) PrintSlices(data interface{}) {
+//PrintSlices print slice
 
 // }
 
