@@ -1,6 +1,6 @@
 package main
 
-//! I want to put the PrintArrays function in the FuncName of Type.
+//!	 I want to put the PrintArrays function in the FuncName of Type.
 import (
 	"fmt"
 	"reflect"
@@ -34,19 +34,6 @@ type Pprint struct {
 func NewPprint() *Pprint {
 	pprint := new(Pprint)
 	pprint.indent = 4
-	// temp := [2]string{"{", "}"}
-	// mapKey := keyword{"map", temp}
-	// temp = [2]string{"[", "]"}
-	// ArrayKey := keyword{"array", temp}
-	// SliceKey := keyword{"slice", temp}
-	// pprint.wordList = make(map[string][2]string)
-	// pprint.test = make(map[string]interface{})
-	// pprint.wordList["map"] = [2]string{"{", "}"}
-	// pprint.wordList["slice"] = [2]string{"[", "]"}
-	// pprint.wordList["array"] = [2]string{"[", "]"}
-	// pprint.formatList = append(pprint.formatList, mapKey)
-	// pprint.formatList = append(pprint.formatList, ArrayKey)
-	// pprint.formatList = append(pprint.formatList, SliceKey)
 	return pprint
 }
 
@@ -90,13 +77,15 @@ func (p *Pprint) SetTypeDetails() *TypeDetails {
 	typedetails.identifier = "array"
 	// typedetails.funcName = temp(0)
 	// temp_values := interface{}
+	typedetails.Word[0] = "["
+	typedetails.Word[1] = "]"
 	typedetails.funcName = temp
-	typedetails.funcName = p.PrintArrays
+	// typedetails.funcName = p.PrintArrays
 
 	return typedetails
 }
-func temp(test interface{}) {
-	fmt.Println("test")
+func temp() return func(){
+	return p.PrintArrays
 }
 
 //PrintArrays print map
