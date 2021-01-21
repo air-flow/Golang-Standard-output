@@ -80,6 +80,8 @@ func (p *Pprint) SetTypeDetails() *TypeDetails {
 	typedetails.Word[0] = "["
 	typedetails.Word[1] = "]"
 	typedetails.funcName = temp
+	//TODO function in typedetails
+	//! struct methods in typedetails.funcName
 	// typedetails.funcName = p.PrintArrays
 
 	return typedetails
